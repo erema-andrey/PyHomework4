@@ -12,26 +12,24 @@
 # которое может собрать за один заход собирающий модуль,
 # находясь перед некоторым кустом заданной во входном файле грядки.
 
+# N (3 <= n <= 1000) – количество кустов черники.
+# Вторая строка содержит N целых положительных чисел a1, a2, ..., aN – число ягод черники,
+# растущее на соответствующем кусте. Все ai не превосходят 1000.
 
-def main():
-    input_file = open("input.txt", "r")
-    output_file = open("output.txt", "w")
-    line = input_file.readline().split()
-    n = int(line[0])
- 
-    a = []
-    line = input_file.readline().split()
-    for i in range(n):
-        a.append(int(line[i]))
-    m1 = a[0] + a[1] + a[n - 1]
-    m2 = a[n - 1] + a[n - 2] + a[0]
- 
-    m = max(m1, m2)
-    for i in range(1, n - 1):
-        if a[i] + a[i - 1] + a[i + 1] > m:
-            m = a[i] + a[i + 1] + a[i - 1]
- 
-    ans = m
- 
- 
-    print(ans)
+    
+
+n = int(input())
+a = list(map(int, input().split()))
+
+maxsum = 0
+
+for i in range(n):
+	cursum = sum(a[i:i+3])
+	if cursum > maxsum:
+		maxsum = cursum
+if a[0] + a[-1] + a[-2] > maxsum:
+	maxsum = a[0] + a[-1] + a[-2]
+if a[0] + a[1] + a[-1] > maxsum:
+	maxsum = a[0] + a[1] + a[-1]
+
+print(maxsum)
